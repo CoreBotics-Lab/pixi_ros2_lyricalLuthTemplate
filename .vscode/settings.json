@@ -1,0 +1,69 @@
+{
+    // --- Python & Pyrefly ---
+    "python.defaultInterpreterPath": "${workspaceFolder}/.pixi/envs/default/bin/python",
+    "python.languageServer": "Default",
+    "python.pyrefly.typeCheckingMode": "default",
+    "python.pyrefly.disableTypeErrors": false,
+    "python.REPL.enableREPLSmartSend": false,
+    "python.analysis.diagnosticsSource": "Pylance + Pyrefly",
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/install/**/lib/python3.14/site-packages",
+        "${workspaceFolder}/.pixi/envs/default/lib/python3.14/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/install/**/lib/python3.14/site-packages",
+        "${workspaceFolder}/.pixi/envs/default/lib/python3.14/site-packages"
+    ],
+
+    // --- Pixi Code Extension ---
+    "pixi-code.pixiExecutable": "~/.pixi/bin/pixi",
+
+    // --- C++ & Clangd ---
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/build",
+        "--header-insertion=never",
+        "--all-scopes-completion",
+        "--completion-style=detailed"
+    ],
+
+    // --- ROS 2 Specifics ---
+    "ros.distro": "lyrical",
+    "ros.rosSetupScript": "${workspaceFolder}/.pixi/envs/default/setup.bash",
+    "cmake.ignoreCMakeListsMissing": true,
+
+    // --- URDF Visualizer Extension ---
+    "urdf-visualizer.packages": {},
+
+    // --- Performance & Exclusions (Keeps VS Code snappy) ---
+    "git.autofetch": false,
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/.pixi/**": true,
+        "**/scripts/**": true,
+        "**/build/**": true,
+        "**/install/**": true,
+        "**/log/**": true,
+        "**/__pycache__/**": true,
+        "**/pixi.lock": true
+    },
+    "files.exclude": {
+        "**/.pixi": true,
+        "**/scripts": true,
+        "**/pixi.lock": true,
+        "**/.gitattributes": true,
+        "**/build": true,
+        "**/install": true,
+        "**/log": true,
+        "**/__pycache__": true
+    },
+    "search.exclude": {
+        "**/.pixi": true,
+        "**/scripts": true,
+        "**/pixi.lock": true,
+        "**/build": true,
+        "**/install": true,
+        "**/log": true
+    }
+}

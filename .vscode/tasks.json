@@ -1,0 +1,63 @@
+{
+  "version": "2.0.0",
+  "options": {
+    "env": {
+      "PATH": "${env:HOME}/.pixi/bin:${env:PATH}"
+    }
+  },
+  "tasks": [
+    {
+      "label": "Build Workspace",
+      "type": "shell",
+      "command": "pixi run build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Clean Workspace",
+      "type": "shell",
+      "command": "pixi run clean all",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Launch Terminator",
+      "type": "shell",
+      "command": "bash -ic 'terminator --working-directory=\"${workspaceFolder}\" > /dev/null 2>&1 &'",
+      "isBackground": true,
+      "problemMatcher": [],
+      "options": {
+        "statusbar": {
+          "label": "$(terminal) Terminator",
+          "color": "#E06C75",
+          "detail": "Click to open Terminator"
+        }
+      },
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared",
+        "showReuseMessage": false
+      }
+    },
+    {
+      "label": "Install Workspace Extensions",
+      "type": "shell",
+      "command": "python3 -c \"import json, re; raw = re.sub(r'//.*', '', open('.vscode/extensions.json').read()); [print(x) for x in json.loads(raw).get('recommendations', [])]\" | while read -r ext; do code --install-extension \"$ext\"; done",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
+}

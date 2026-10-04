@@ -1,0 +1,16 @@
+# ROS 2 Build Artifacts
+build/
+install/
+log/
+
+# Python cache & artifacts
+__pycache__/
+*.pyc
+
+# IDE database & environment files
+.vscode/browse.vc.db
+.mypy_cache/
+
+# Pixi environments
+.pixi/*
+!.pixi/config.toml

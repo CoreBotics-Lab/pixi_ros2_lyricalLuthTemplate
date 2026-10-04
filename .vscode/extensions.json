@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "meta.pyrefly",
+    "llvm-vs-code-extensions.vscode-clangd",
+    "ms-vscode.cpptools",
+    "ms-vscode.cmake-tools",
+    "vadimcn.vscode-lldb",
+    "ranch-hand-robotics.rde-pack",
+    "morningfrog.urdf-visualizer",
+    "kodorobotics.launchmap",
+    "kamathsblog.pgm-editor",
+    "actboy168.tasks",
+    "adpyke.codesnap",
+    "renan-r-santos.pixi-code"
+  ]
+}

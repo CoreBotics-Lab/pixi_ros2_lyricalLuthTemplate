@@ -1,0 +1,10 @@
+# Pyrefly type checker configuration
+# https://pyrefly.org/en/stable/configuration/
+
+python-version = "3.14"
+
+# Tell Pyrefly where to find local/shared library packages
+search-path = [
+    ".pixi/envs/default/lib/python3.14/site-packages",
+    "install/**/lib/python3.14/site-packages"
+]
