@@ -40,6 +40,7 @@ else
     echo -e "${RED}❌ Error: Neither colcon nor pixi found!${NC}"
     return 1 2>/dev/null || exit 1
 fi
+BASE_PATHS="--base-paths src"
 
 # Function to collect and expand packages (supports wildcards like gizmo_*)
 collect_packages() {
@@ -105,13 +106,13 @@ elif [ "$1" == "debug" ]; then
     
     if [ -z "$1" ] || [[ "$1" == --* ]]; then
         echo -e "${YELLOW}🐞 [DEBUG ALL] Building entire workspace with Debug symbols...${NC}"
-        $COLCON_CMD build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
+        $COLCON_CMD build $BASE_PATHS --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
     else
         PKGS=$(collect_packages "$@")
         while [ -n "$1" ] && [[ "$1" != --* ]]; do shift; done
         
         echo -e "🐞 [DEBUG PARTIAL] Building packages [${CYAN}$PKGS${NC}] with Debug symbols..."
-        $COLCON_CMD build --packages-select $PKGS --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
+        $COLCON_CMD build $BASE_PATHS --packages-select $PKGS --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
     fi
     echo -e "${GREEN}✅ Debug build complete.${NC}"
 
@@ -119,18 +120,18 @@ elif [ "$1" == "debug" ]; then
 elif [ "$1" == "all" ]; then
     echo -e "${YELLOW}🏗️  [FORCE ALL] Rebuilding every package (Release)...${NC}"
     shift
-    $COLCON_CMD build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
+    $COLCON_CMD build $BASE_PATHS --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
 
 elif [ -n "$1" ] && [[ "$1" != --* ]]; then
     PKGS=$(collect_packages "$@")
     while [ -n "$1" ] && [[ "$1" != --* ]]; do shift; done
     
     echo -e "📦 [PARTIAL BUILD] Targeting packages: ${CYAN}$PKGS${NC}..."
-    $COLCON_CMD build --packages-select $PKGS --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
+    $COLCON_CMD build $BASE_PATHS --packages-select $PKGS --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
 
 else
     echo -e "${YELLOW}⚡ [INCREMENTAL BUILD] Building changes...${NC}"
-    $COLCON_CMD build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
+    $COLCON_CMD build $BASE_PATHS --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
 fi
 
 # 6. Re-source the workspace
@@ -138,4 +139,3 @@ if [ -f "$WS_ROOT/install/setup.bash" ]; then
     source "$WS_ROOT/install/setup.bash"
     echo -e "${GREEN}🔄 Environment re-sourced.${NC}"
 fi
-
