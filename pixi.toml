@@ -19,6 +19,7 @@ FONTCONFIG_FILE = "/etc/fonts/fonts.conf"
 build = "bash scripts/build.sh"
 clean = "bash scripts/build.sh clean"
 test = "colcon test"
+kill-gz = "killall -9 gz-sim-main gz-sim-gui-client 2>/dev/null || true"
 
 [dependencies]
 ros-lyrical-desktop = "*"
